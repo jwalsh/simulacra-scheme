@@ -16,7 +16,14 @@
 
 # Specific to Guile
 meta
+.cache/
+
+# Generated files
+generated-diagrams.md
 
 # Editor specific files
 .vscode/
 .idea/
+\#*\#
+.\#*
+*.elc

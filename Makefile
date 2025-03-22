@@ -30,8 +30,19 @@ run-watergate:
 generate-diagrams:
 	$(SCHEME) -l mermaid-generator.scm
 
+# Run tests (placeholder for future test implementation)
+test:
+	@echo "No tests implemented yet. See GitHub issue #6"
+	@echo "Future implementation will use SRFI-64 test framework"
+
 # Clean any generated files
 clean:
 	rm -f *.log *.out generated-diagrams.md
+	find . -name "*.go" -delete
 
-.PHONY: all run-example run-demo run-hyperreality run-disneyland run-watergate generate-diagrams clean
+# Set up environment (placeholder)
+setup:
+	@echo "Checking Guile installation..."
+	@$(SCHEME) --version
+
+.PHONY: all run-example run-demo run-hyperreality run-disneyland run-watergate generate-diagrams test clean setup
