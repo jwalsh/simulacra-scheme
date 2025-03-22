@@ -3,8 +3,10 @@
 
 ;; Using Guile's built-in format module
 (use-modules (ice-9 format))
-;; Load simulacra.scm for access to its functions
-(primitive-load "simulacra.scm")
+(use-modules (srfi srfi-9))
+
+;; Include all definitions from simulacra file directly
+(include "simulacra.scm")
 
 ;; Function to generate Mermaid flowchart string for the four orders of simulacra
 (define (generate-simulacra-flowchart)
