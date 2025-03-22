@@ -74,14 +74,20 @@
                                   (symbol->string new-perception) "\n"))
           (loop all-posts (- iter 1) new-perception)))))
 
-;; Helper function to find the most popular post using Guile's SRFI-95 for sorting
-(use-modules (srfi srfi-95))
+;; Helper function to find the most popular post
+;; Note: Not using SRFI-95 since it may not be available in all Guile installations
 
 (define (find-most-popular posts)
-  (car (sort! (list-copy posts) 
-              (lambda (p1 p2) 
-                (> (+ (post-likes p1) (post-shares p1))
-                   (+ (post-likes p2) (post-shares p2))))))
+  (let loop ((remaining (cdr posts))
+             (most-popular (car posts)))
+    (if (null? remaining)
+        most-popular
+        (let ((current (car remaining)))
+          (loop (cdr remaining)
+                (if (> (+ (post-likes current) (post-shares current))
+                       (+ (post-likes most-popular) (post-shares most-popular)))
+                    current
+                    most-popular))))))
 
 ;; Helper function to update reality perception based on propagating posts
 (define (update-reality-perception current-perception popular-post)

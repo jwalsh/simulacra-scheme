@@ -42,7 +42,7 @@ Use Guile's module system appropriately:
 #+END_SRC
 
 ** Record Types
-Use SRFI-9 for defining record types:
+Use Guile's built-in record type functionality:
 
 #+BEGIN_SRC scheme
 (define-record-type <reality>

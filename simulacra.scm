@@ -5,8 +5,8 @@
 ;; The Four Orders of Simulacra
 ;; ============================================================
 
-;; Define a structure for reality and representations using Guile's SRFI-9
-(use-modules (srfi srfi-9))
+;; Define a structure for reality and representations using Guile's define-record-type
+;; (compatible with SRFI-9 but using built-in Guile functionality)
 
 (define-record-type <reality>
   (make-reality name essence existence)

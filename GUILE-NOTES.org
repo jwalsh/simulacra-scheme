@@ -9,8 +9,8 @@ This project is specifically designed to work with Guile Scheme across different
 ** Requirements
 
 - Guile Scheme 3.0+ (though most code should work with 2.2+)
-- SRFI-9 (record types) - included in Guile
-- SRFI-95 (sorting) - included in Guile
+- Built-in record types (compatible with SRFI-9 spec)
+- No external dependencies needed
 
 ** Platform-specific Installation
 

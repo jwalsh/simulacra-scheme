@@ -1,6 +1,7 @@
 ;; Generate Mermaid diagrams from Simulacra models
 ;; For use with Guile Scheme
 
+;; Using Guile's built-in format module
 (use-modules (ice-9 format))
 (load "simulacra.scm")
 
