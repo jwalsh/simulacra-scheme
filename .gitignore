@@ -1,0 +1,22 @@
+# Guile compiled files
+*.go
+
+# Auto-save files
+*~
+
+# Backup files
+*.bak
+
+# Temp files
+*.tmp
+.DS_Store
+
+# Log files
+*.log
+
+# Specific to Guile
+meta
+
+# Editor specific files
+.vscode/
+.idea/

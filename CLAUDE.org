@@ -2,22 +2,30 @@
 #+AUTHOR: Jason Walsh
 #+DATE: [2025-03-22 Sat]
 
-* Overview
+* Build & Run Commands
 
-This document provides guidance for AI assistants (like Claude) working with the simulacra-scheme codebase. It explains project intent, Guile Scheme best practices, and suggests improvements.
+#+BEGIN_SRC shell
+# Run social media simulation
+make run-example
 
-* Project Intent
+# Run basic simulacra demo
+make run-demo
 
-The =simulacra-scheme= project implements Jean Baudrillard's philosophical concepts around simulation and hyperreality in executable Guile Scheme code. Key goals:
+# Run hyperreality demo
+make run-hyperreality
 
-- Make abstract philosophical concepts concrete and interactive
-- Provide educational examples of simulation progression
-- Demonstrate functional programming approaches to modeling theoretical concepts
-- Create visualizations that help explain Baudrillard's ideas
+# Generate Mermaid diagrams
+make generate-diagrams
 
-* Guile Scheme Best Practices
+# Run specific functions in REPL
+guile -l simulacra.scm -c "(demo-progression)"
+guile -l example.scm -c "(run-social-media-simulation)"
 
-When working with this codebase, AI assistants should follow these Guile Scheme best practices:
+# Run tests (when implemented)
+guile -l tests/simulacra-tests.scm
+#+END_SRC
+
+* Code Style Guidelines
 
 ** Module System
 Use Guile's module system appropriately:
@@ -86,8 +94,7 @@ Include docstrings and comments explaining philosophical concepts:
   (make-reality "Pure Simulacrum" 'self-referential 'hyperreal))
 #+END_SRC
 
-* Handling Errors
-
+** Handling Errors
 Guile's error handling typically uses exceptions:
 
 #+BEGIN_SRC scheme
@@ -97,8 +104,7 @@ Guile's error handling typically uses exceptions:
       (throw 'type-error "Expected a reality object")))
 #+END_SRC
 
-* Testing
-
+** Testing
 Prefer SRFI-64 for writing tests:
 
 #+BEGIN_SRC scheme
@@ -117,46 +123,16 @@ Prefer SRFI-64 for writing tests:
 (test-end "simulacra-tests")
 #+END_SRC
 
-* Development Suggestions
+* Project Structure
+- =simulacra.scm= :: Core implementation of Baudrillard's concepts
+- =example.scm= :: Social media simulation showing progress through orders of simulacra
+- =mermaid-generator.scm= :: Generates Mermaid diagrams from the Scheme models
+- =simulacra-diagram.md= :: Pre-generated Mermaid diagrams of key concepts
+- =GUILE-NOTES.org= :: Platform-specific information for Guile Scheme
 
-When suggesting improvements to this codebase:
-
-1. Focus on making philosophical concepts more accessible through code
-2. Improve visualizations to better explain simulation progression
-3. Add interactive elements that allow users to experiment with the concepts
-4. Ensure cross-platform compatibility (OSX, FreeBSD, Linux)
-5. Maintain functional programming paradigms appropriate to Scheme
-
-* Example Implementation Patterns
-
-** Simulation Progression
-#+BEGIN_SRC scheme
-(define (simulate-progression initial-reality steps)
-  (let loop ((current initial-reality)
-             (step 0))
-    (if (>= step steps)
-        current
-        (loop (advance-simulation current) (+ step 1)))))
-
-(define (advance-simulation reality)
-  (cond
-   ((eq? (reality-existence reality) 'original)
-    (first-order-simulacra reality))
-   ((eq? (reality-existence reality) 'reflection)
-    (second-order-simulacra reality))
-   ((eq? (reality-existence reality) 'perversion)
-    (third-order-simulacra reality))
-   (else
-    (fourth-order-simulacra))))
-#+END_SRC
-
-** Category Collapse
-#+BEGIN_SRC scheme
-(define (implode-categories . categories)
-  (let ((imploded-essence
-         (apply append (map reality-essence categories))))
-    (make-reality
-     "Imploded Categories"
-     imploded-essence
-     'indeterminate)))
-#+END_SRC
+* Development Focus
+- Make philosophical concepts accessible through code
+- Improve visualizations to better explain simulation progression
+- Add interactive elements that allow users to experiment with the concepts
+- Ensure cross-platform compatibility (OSX, FreeBSD, Linux)
+- Maintain functional programming paradigms appropriate to Scheme

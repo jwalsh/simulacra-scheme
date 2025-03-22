@@ -1,0 +1,98 @@
+#+TITLE: Simulacra-Scheme
+#+AUTHOR: Jason Walsh
+#+DATE: [2025-03-22 Sat]
+
+* Simulacra-Scheme
+
+An exploration of Jean Baudrillard's "Simulacra and Simulation" concepts through Guile Scheme programming. This repository contains code implementations that demonstrate the philosophical concepts of simulation, hyperreality, and the progression of images/signs as described by Baudrillard.
+
+** Overview
+
+Baudrillard's work explores how reality has been replaced by symbols and signs, and how human experience is mediated through simulations. This project uses Scheme's functional paradigm to model these concepts programmatically.
+
+** Key Concepts Implemented
+
+- The four orders of simulacra
+- Hyperreality generation
+- Simulation vs reality distinction collapse
+- The precession of simulacra
+- Mise en scène of reality
+
+** Project Structure
+
+- =simulacra.scm= :: Core implementation of Baudrillard's concepts
+- =example.scm= :: Social media simulation showing progress through orders of simulacra
+- =mermaid-generator.scm= :: Generates Mermaid diagrams from the Scheme models
+- =simulacra-diagram.md= :: Pre-generated Mermaid diagrams of key concepts
+- =GUILE-NOTES.org= :: Platform-specific information for Guile Scheme
+
+** Mermaid Diagrams
+
+The repository includes Mermaid diagrams that visually represent the key concepts:
+
+#+BEGIN_SRC mermaid
+graph TD
+    A[Original Reality] --> B[First Order: Reflection]
+    B --> C[Second Order: Perversion]
+    C --> D[Third Order: Masking Absence]
+    D --> E[Fourth Order: Pure Simulacrum]
+    
+    style A fill:#f9f9f9,stroke:#333,stroke-width:1px
+    style B fill:#e6f7ff,stroke:#333,stroke-width:1px
+    style C fill:#b3e0ff,stroke:#333,stroke-width:1px
+    style D fill:#4db8ff,stroke:#333,stroke-width:1px
+    style E fill:#0080ff,stroke:#333,stroke-width:1px
+#+END_SRC
+
+** Requirements
+
+- Guile Scheme implementation
+- Basic understanding of functional programming
+- Interest in postmodern philosophy
+
+** Usage
+
+The project includes a Makefile for easy usage:
+
+#+BEGIN_SRC shell
+# Run the social media simulation example
+make run-example
+
+# Run the simulacra progression demo
+make run-demo
+
+# Generate Mermaid diagrams
+make generate-diagrams
+#+END_SRC
+
+** Social Media Simulation
+
+The =example.scm= file contains a simulation showing how social media transforms direct experiences into hyperreality through successive sharing and engagement:
+
+#+BEGIN_SRC scheme
+;; First order: A post directly reflecting an event
+(define (create-original-post event)
+  (make-post 
+    (string-append "I witnessed " event)
+    0
+    0
+    'direct-experience))
+
+;; Fourth order: A completely fabricated viral post
+(define (create-viral-post)
+  (make-post
+    "You won't believe what happened! #trending #viral"
+    0
+    0
+    'pure-simulation))
+#+END_SRC
+
+** Philosophical Background
+
+The implementation is based on Jean Baudrillard's seminal work "Simulacra and Simulation" (1981), which explores how society has replaced reality with symbols and signs, and how human experience is increasingly mediated through simulations.
+
+The four orders of simulacra describe the progression from faithful representations of reality to completely detached simulations that have no reference to reality whatsoever.
+
+** License
+
+MIT

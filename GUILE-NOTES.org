@@ -1,0 +1,130 @@
+#+TITLE: Guile Scheme Implementation Notes
+#+AUTHOR: Jason Walsh
+#+DATE: [2025-03-22 Sat]
+
+* Guile Scheme Implementation Notes
+
+This project is specifically designed to work with Guile Scheme across different platforms (OSX, FreeBSD, and Linux).
+
+** Requirements
+
+- Guile Scheme 3.0+ (though most code should work with 2.2+)
+- SRFI-9 (record types) - included in Guile
+- SRFI-95 (sorting) - included in Guile
+
+** Platform-specific Installation
+
+*** OSX
+
+#+BEGIN_SRC shell
+# Using Homebrew
+brew install guile
+
+# Check installation
+guile --version
+#+END_SRC
+
+*** FreeBSD
+
+#+BEGIN_SRC shell
+# Using pkg
+pkg install guile3
+
+# or ports
+cd /usr/ports/lang/guile3 && make install clean
+#+END_SRC
+
+*** Linux
+
+**** Debian/Ubuntu
+
+#+BEGIN_SRC shell
+sudo apt-get install guile-3.0
+#+END_SRC
+
+**** Fedora/RHEL
+
+#+BEGIN_SRC shell
+sudo dnf install guile
+#+END_SRC
+
+** Running the Examples
+
+From the repository root:
+
+#+BEGIN_SRC shell
+# Run the social media simulation example
+make run-example
+
+# Run just the core simulacra demo
+make run-demo
+#+END_SRC
+
+Or directly with Guile:
+
+#+BEGIN_SRC shell
+guile -l example.scm -c "(run-social-media-simulation)"
+#+END_SRC
+
+** Using the REPL for Exploration
+
+#+BEGIN_SRC shell
+# Start Guile REPL
+guile
+
+# Inside REPL
+scheme@(guile-user)> (load "simulacra.scm")
+scheme@(guile-user)> (demo-progression)
+#+END_SRC
+
+** Notes on Guile-specific Features
+
+This implementation uses SRFI-9 for record types and SRFI-95 for sorting functions, both of which are standard in modern Guile installations. The code avoids implementation-specific features to maintain compatibility across different Guile versions and platforms.
+
+** Guile Module System
+
+For larger extensions to this project, using Guile's module system is recommended:
+
+#+BEGIN_SRC scheme
+(define-module (simulacra core)
+  #:use-module (srfi srfi-9)   ;; records
+  #:use-module (srfi srfi-95)  ;; sorting
+  #:export (make-reality
+            reality?
+            reality-name
+            reality-essence
+            reality-existence))
+#+END_SRC
+
+** Testing with SRFI-64
+
+For testing, SRFI-64 is recommended:
+
+#+BEGIN_SRC scheme
+(use-modules (srfi srfi-64))
+
+(test-begin "simulacra-tests")
+
+(test-assert "reality creation" 
+  (reality? (make-reality "test" 'test 'test)))
+
+(test-equal "first order simulacra" 
+  "Reflection of Original"
+  (reality-name (first-order-simulacra 
+                  (make-reality "Original" 'authentic 'real))))
+
+(test-end "simulacra-tests")
+#+END_SRC
+
+** Debugging Tips
+
+- Use =(display)= and =(format)= for output
+- Remember that =(write)= shows the S-expression structure
+- Try =(gcrypt hash blake2 512)= for debugging content equality
+- Enable backtraces for debugging with:
+
+#+BEGIN_SRC scheme
+(use-modules (system vm trap-state))
+(trap-enable 'wrong-type-arg)
+(trap-enable 'out-of-range)
+#+END_SRC
