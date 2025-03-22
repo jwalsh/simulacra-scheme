@@ -1,0 +1,162 @@
+#+TITLE: Guidelines for AI Assistance with the Simulacra-Scheme Project
+#+AUTHOR: Jason Walsh
+#+DATE: [2025-03-22 Sat]
+
+* Overview
+
+This document provides guidance for AI assistants (like Claude) working with the simulacra-scheme codebase. It explains project intent, Guile Scheme best practices, and suggests improvements.
+
+* Project Intent
+
+The =simulacra-scheme= project implements Jean Baudrillard's philosophical concepts around simulation and hyperreality in executable Guile Scheme code. Key goals:
+
+- Make abstract philosophical concepts concrete and interactive
+- Provide educational examples of simulation progression
+- Demonstrate functional programming approaches to modeling theoretical concepts
+- Create visualizations that help explain Baudrillard's ideas
+
+* Guile Scheme Best Practices
+
+When working with this codebase, AI assistants should follow these Guile Scheme best practices:
+
+** Module System
+Use Guile's module system appropriately:
+
+#+BEGIN_SRC scheme
+(define-module (simulacra core)
+  #:use-module (srfi srfi-9)   ;; records
+  #:use-module (srfi srfi-95)  ;; sorting
+  #:export (make-reality
+            reality?
+            reality-name
+            reality-essence
+            reality-existence))
+#+END_SRC
+
+** Record Types
+Use SRFI-9 for defining record types:
+
+#+BEGIN_SRC scheme
+(define-record-type <reality>
+  (make-reality name essence existence)
+  reality?
+  (name reality-name)
+  (essence reality-essence)
+  (existence reality-existence))
+#+END_SRC
+
+** Pure Functions
+Prefer pure functions where possible, following functional programming principles:
+
+#+BEGIN_SRC scheme
+;; Good: Pure function that returns a new object
+(define (first-order-simulacra reality)
+  (make-reality 
+    (string-append "Reflection of " (reality-name reality))
+    (reality-essence reality)
+    (reality-existence reality)))
+
+;; Avoid: Mutating existing objects when not necessary
+(define (bad-first-order! reality)
+  (set! (reality-name reality) 
+        (string-append "Reflection of " (reality-name reality)))
+  reality)
+#+END_SRC
+
+** List Operations
+Use functional operations on lists:
+
+#+BEGIN_SRC scheme
+;; Map, filter, and fold are preferred over explicit recursion
+(define (process-realities realities)
+  (map first-order-simulacra 
+       (filter reality? realities)))
+#+END_SRC
+
+** Documentation
+Include docstrings and comments explaining philosophical concepts:
+
+#+BEGIN_SRC scheme
+(define (fourth-order-simulacra)
+  "Creates a pure simulacrum with no relation to reality.
+   
+   In Baudrillard's theory, this represents the final stage
+   where the simulation has completely replaced any reference
+   to reality and operates solely on its own terms."
+  (make-reality "Pure Simulacrum" 'self-referential 'hyperreal))
+#+END_SRC
+
+* Handling Errors
+
+Guile's error handling typically uses exceptions:
+
+#+BEGIN_SRC scheme
+(define (ensure-reality object)
+  (if (reality? object)
+      object
+      (throw 'type-error "Expected a reality object")))
+#+END_SRC
+
+* Testing
+
+Prefer SRFI-64 for writing tests:
+
+#+BEGIN_SRC scheme
+(use-modules (srfi srfi-64))
+
+(test-begin "simulacra-tests")
+
+(test-assert "reality creation" 
+  (reality? (make-reality "test" 'test 'test)))
+
+(test-equal "first order simulacra" 
+  "Reflection of Original"
+  (reality-name (first-order-simulacra 
+                  (make-reality "Original" 'authentic 'real))))
+
+(test-end "simulacra-tests")
+#+END_SRC
+
+* Development Suggestions
+
+When suggesting improvements to this codebase:
+
+1. Focus on making philosophical concepts more accessible through code
+2. Improve visualizations to better explain simulation progression
+3. Add interactive elements that allow users to experiment with the concepts
+4. Ensure cross-platform compatibility (OSX, FreeBSD, Linux)
+5. Maintain functional programming paradigms appropriate to Scheme
+
+* Example Implementation Patterns
+
+** Simulation Progression
+#+BEGIN_SRC scheme
+(define (simulate-progression initial-reality steps)
+  (let loop ((current initial-reality)
+             (step 0))
+    (if (>= step steps)
+        current
+        (loop (advance-simulation current) (+ step 1)))))
+
+(define (advance-simulation reality)
+  (cond
+   ((eq? (reality-existence reality) 'original)
+    (first-order-simulacra reality))
+   ((eq? (reality-existence reality) 'reflection)
+    (second-order-simulacra reality))
+   ((eq? (reality-existence reality) 'perversion)
+    (third-order-simulacra reality))
+   (else
+    (fourth-order-simulacra))))
+#+END_SRC
+
+** Category Collapse
+#+BEGIN_SRC scheme
+(define (implode-categories . categories)
+  (let ((imploded-essence
+         (apply append (map reality-essence categories))))
+    (make-reality
+     "Imploded Categories"
+     imploded-essence
+     'indeterminate)))
+#+END_SRC
